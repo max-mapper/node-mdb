@@ -24,10 +24,12 @@ Mdb.prototype.toCSV = function(table) {
 }
 
 Mdb.prototype.tables = function(cb) {
+  var self = this
   procstream('mdb-tables -d ' + this.tableDelimiter + ' ' + this.file)
     .data(function(err, out) {
       if (err) return cb(err)
-      cb(false, out.split(this.tableDelimiter))
+      var tables = out.replace(/\n$/, '').split(self.tableDelimiter)
+      cb(false, tables)
     })
 }
 

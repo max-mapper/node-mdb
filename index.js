@@ -28,7 +28,8 @@ Mdb.prototype.tables = function(cb) {
   procstream('mdb-tables -d ' + this.tableDelimiter + ' ' + this.file)
     .data(function(err, out) {
       if (err) return cb(err)
-      var tables = out.replace(/\n$/, '').split(self.tableDelimiter)
+      console.log(out)
+      var tables = out.replace(/,\n$/, '').split(self.tableDelimiter)
       cb(false, tables)
     })
 }

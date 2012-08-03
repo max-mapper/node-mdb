@@ -11,16 +11,13 @@ function Mdb(file) {
 
 util.inherits(Mdb, stream.Stream)
 
-Mdb.prototype.allTablesToCSV = function() {
-  var tables = {}
-  this.tables(file).forEach(function(table) {
-    tables[table] = this.toCSV(table)
-  })
-  return tables
-}
+Mdb.prototype.toCSV = function(table, cb) {
+  procstream('mdb-export ' + this.file + ' ' + table)
+    .data(function(err, out) {
+      if (err) return cb(err)
+      cb(false, out)
+    })
 
-Mdb.prototype.toCSV = function(table) {
-  return procstream('mdb-export ' + table + ' ' + this.file)
 }
 
 Mdb.prototype.tables = function(cb) {
@@ -28,7 +25,6 @@ Mdb.prototype.tables = function(cb) {
   procstream('mdb-tables -d ' + this.tableDelimiter + ' ' + this.file)
     .data(function(err, out) {
       if (err) return cb(err)
-      console.log(out)
       var tables = out.replace(/,\n$/, '').split(self.tableDelimiter)
       cb(false, tables)
     })

@@ -6,6 +6,7 @@ var concat = require('concat-stream')
 function Mdb(file) {
   stream.Stream.call(this)
   this.file = file
+  this.tableDelimiter = ','
 }
 
 util.inherits(Mdb, stream.Stream)
@@ -23,15 +24,11 @@ Mdb.prototype.toCSV = function(table) {
 }
 
 Mdb.prototype.tables = function(cb) {
-  procstream('mdb-tables ' + this.file)
-    .data(function(stdout, stderr) {
-      console.log(stdout, stderr)
+  procstream('mdb-tables -d ' + this.tableDelimiter + ' ' + this.file)
+    .data(function(err, out) {
+      if (err) return cb(err)
+      cb(false, tables.split(this.tableDelimiter))
     });
-  
-  // .pipe(concat(function(err, tables) {
-  //   if (err) return cb(err)
-  //   cb(false, tables.split(' '))
-  // }))
 }
 
 module.exports = function(data) {

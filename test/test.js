@@ -1,5 +1,9 @@
 var mdb = require('../')
 
-mdb('fruit.mdb').tables(function(err, tables) {
-  console.log(err, tables)
+var fruit = mdb('fruit.mdb').tables(function(err, tables) {
+  tables.forEach(function(table) {
+    fruit.toCSV(table, function(err, csv) {
+      console.log(table, csv)
+    })
+  })
 })

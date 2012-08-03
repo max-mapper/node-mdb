@@ -11,6 +11,6 @@
   { "url" : "http://github.com/maxogden/node-mdb/issues" }
 , "engines" : ["node >= 0.4.0"]
 , "dependencies": {
-    "concat-stream": "0.0.2"
+    "concat-stream": "0.0.3"
   }
 }

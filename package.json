@@ -1,8 +1,16 @@
-{
-  "name": "mdb",
-  "version": "0.0.1",
-  "dependencies": {
-    "concat-stream": "0.0.2",
+{ "name" : "mdb"
+, "description" : "use mdbtools from node to convert MS Access databases (.mdb and .accdb) to CSV"
+, "tags" : ["access", "msaccess", "accdb", "mdb", "msft", "microsoft", "csv"]
+, "version" : "0.0.1"
+, "author" : "Max Ogden <max@maxogden.com>"
+, "repository" :
+  { "type" : "git"
+  , "url" : "http://github.com/maxogden/node-mdb.git"
+  }
+, "bugs" :
+  { "url" : "http://github.com/maxogden/node-mdb/issues" }
+, "engines" : ["node >= 0.4.0"]
+, "dependencies": {
     "procstreams": "0.2.0"
   }
 }

@@ -25,7 +25,7 @@ Mdb.prototype.toCSV = function(table, cb) {
 
 Mdb.prototype.tables = function(cb) {
   var self = this
-  var cmd = spawn('mdb-tables', ['-d ' + this.tableDelimiter, this.file])
+  var cmd = spawn('mdb-tables', ['-d' + this.tableDelimiter, this.file])
   cmd.stdout.pipe(
     concat(function(err, out) {
       if (err) return cb(err)

@@ -21,7 +21,7 @@ also as of this writing `mdbtools` supports `.mdb` and `.accdb` files up through
     fruit.tables(function(err, tables) {
       tables.forEach(function(table) {
         fruit.toCSV(table, function(err, csv) {
-          console.log(table, csv)
+          console.log(err, table, csv.split('\n').length - 1 + " lines")
         })
       })
     })

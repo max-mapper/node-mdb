@@ -27,8 +27,8 @@ Mdb.prototype.tables = function(cb) {
   procstream('mdb-tables -d ' + this.tableDelimiter + ' ' + this.file)
     .data(function(err, out) {
       if (err) return cb(err)
-      cb(false, tables.split(this.tableDelimiter))
-    });
+      cb(false, out.split(this.tableDelimiter))
+    })
 }
 
 module.exports = function(data) {

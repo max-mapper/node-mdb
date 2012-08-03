@@ -1,7 +1,7 @@
 { "name" : "mdb"
 , "description" : "use mdbtools from node to convert MS Access databases (.mdb and .accdb) to CSV"
 , "tags" : ["access", "msaccess", "accdb", "mdb", "msft", "microsoft", "csv"]
-, "version" : "0.0.3"
+, "version" : "0.0.4"
 , "author" : "Max Ogden <max@maxogden.com>"
 , "repository" :
   { "type" : "git"

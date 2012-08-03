@@ -13,7 +13,8 @@ function Mdb(file) {
 util.inherits(Mdb, stream.Stream)
 
 Mdb.prototype.toCSV = function(table, cb) {
-  spawn('mdb-export', [this.file, table]).pipe(
+  var cmd = spawn('mdb-export', [this.file, table])
+  cmd.stdout.pipe(
     concat(function(err, out) {
       if (err) return cb(err)
       cb(false, out)
@@ -23,7 +24,8 @@ Mdb.prototype.toCSV = function(table, cb) {
 
 Mdb.prototype.tables = function(cb) {
   var self = this
-  spawn('mdb-tables', ['-d ' + this.tableDelimiter, this.file]).pipe(
+  var cmd = spawn('mdb-tables', ['-d ' + this.tableDelimiter, this.file])
+  cmd.stdout.pipe(
     concat(function(err, out) {
       if (err) return cb(err)
       var tables = out.replace(/,\n$/, '').split(self.tableDelimiter)

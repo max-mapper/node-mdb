@@ -17,7 +17,8 @@ Mdb.prototype.toCSV = function(table, cb) {
   cmd.stdout.pipe(
     concat(function(err, out) {
       if (err) return cb(err)
-      cb(false, out)
+      if (!out) return cb('no output')
+      cb(false, out.toString())
     })
   )
 }
@@ -28,7 +29,8 @@ Mdb.prototype.tables = function(cb) {
   cmd.stdout.pipe(
     concat(function(err, out) {
       if (err) return cb(err)
-      var tables = out.replace(/,\n$/, '').split(self.tableDelimiter)
+      if (!out) return cb('no output')
+      var tables = out.toString().replace(/,\n$/, '').split(self.tableDelimiter)
       cb(false, tables)
     })
   )

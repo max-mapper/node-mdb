@@ -23,6 +23,17 @@ Mdb.prototype.toCSV = function(table, cb) {
   )
 }
 
+Mdb.prototype.toSQL = function(table, cb) {
+  var cmd = spawn('mdb-export', ['-I -R ;\r\n', this.file, table])
+  cmd.stdout.pipe(
+    concat(function(err, out) {
+      if (err) return cb(err)
+      if (!out) return cb('no output')
+      cb(false, out.toString())
+    })
+  )
+}
+
 Mdb.prototype.tables = function(cb) {
   var self = this
   var cmd = spawn('mdb-tables', ['-d' + this.tableDelimiter, this.file])

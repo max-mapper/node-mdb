@@ -23,8 +23,8 @@ Mdb.prototype.toCSV = function(table, cb) {
   )
 }
 
-Mdb.prototype.toSQL = function(table, cb) {
-  var cmd = spawn('mdb-export', ['-I -R ;\r\n', this.file, table])
+Mdb.prototype.toSQL = function(table, cb, backend) {
+  var cmd = spawn('mdb-export', ['-I', backend ? backend : 'mysql', this.file, table])
   cmd.stdout.pipe(
     concat(function(err, out) {
       if (err) return cb(err)
@@ -36,7 +36,7 @@ Mdb.prototype.toSQL = function(table, cb) {
 
 Mdb.prototype.tables = function(cb) {
   var self = this
-  var cmd = spawn('mdb-tables', ['-d' + this.tableDelimiter, this.file])
+  var cmd = spawn('mdb-tables', ['-d', this.tableDelimiter, this.file])
   cmd.stdout.pipe(
     concat(function(err, out) {
       if (err) return cb(err.toString())
